@@ -58,7 +58,7 @@ def run_model():
     epochs_without_improvement = 0
 
     # Number of epochs for training
-    num_epochs = 10000  # Number of training epochs
+    num_epochs = 1000 # Number of training epochs
 
     # Training loop
     train_losses = []  # Store training losses for later plotting
@@ -91,8 +91,8 @@ def run_model():
         val_losses.append(val_loss.item())
 
         # Early stopping condition: if validation loss does not improve
-        if val_loss < best_loss:
-            best_loss = val_loss
+        print("Val loss to loss diff is " + str(val_loss.item() - loss.item()))
+        if (abs(val_loss.item() - loss.item())) > 0.0001:
             epochs_without_improvement = 0  # Reset counter
         else:
             epochs_without_improvement += 1
@@ -159,8 +159,11 @@ def run_model():
     sns.histplot(residuals.numpy(), kde=True, bins=30, stat="density", color="blue")
     plt.xlabel('Residuals')
     plt.ylabel('Density')
-    plt.title('Histogram o  f Residuals')
+    plt.title('Histogram of Residuals')
     plt.show()
+
+    # Save the model's state_dict (weights and biases)
+    torch.save(model.state_dict(), './force_trained_shallow_model.pth')
 
 
 # Initialization for the weights
