@@ -289,7 +289,7 @@ def add_downwash_force_to_dataset(combined_data_df):
     """
     downwash_forces = []
     interpolated_data = pd.read_csv('interpolated_force_data.csv')
-
+    print("Interpolated data shape is " + str(interpolated_data.shape))
     for _, row in combined_data_df.iterrows():
         # Compute the relative position between Drone 1 and Drone 2
         rel_x = row['drone2_x'] - row['drone1_x']
@@ -327,7 +327,7 @@ def main():
     free_flight_df = load_free_flight_data()
     #vel_data_df = load_velocity_data()
     combined_data_df = add_downwash_force_to_dataset(free_flight_df)
-
+    print("Combined data sghape is " + str(combined_data_df.shape))
     # Print the result
     print(combined_data_df[['time', 'downwash_force_at_pos_drone1']].head())
     print(f"Combined data columns: {combined_data_df.columns}")
