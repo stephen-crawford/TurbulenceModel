@@ -79,38 +79,6 @@ def plot_loss_surface(perturbations, losses):
     plt.title('Loss Surface')
     plt.show()
 
-# def compute_hessian(model, X, y, criterion):
-#     model.eval()
-#     predictions = model(X)
-#     loss = criterion(predictions, y)
-#
-#     # Flatten all model parameters into a single vector
-#     params = list(model.parameters())
-#     num_params = sum(p.numel() for p in params)
-#
-#     # Initialize Hessian matrix
-#     hessian = torch.zeros((num_params, num_params), device=loss.device)
-#
-#     # Compute the gradient of the loss with respect to parameters
-#     grad1 = torch.autograd.grad(loss, params, create_graph=True, retain_graph=True)
-#     if grad1 is None:
-#         print(f"Gradient for parameter is None. Skipping.")
-#     else:
-#         print("Grad not None, is: " + str(grad1))
-#     grad1 = torch.cat([g.view(-1) for g in grad1 if g is not None])  # Flatten gradients
-#
-#     # Compute second-order derivatives (Hessian)
-#     for i in range(num_params):
-#         grad2 = torch.autograd.grad(grad1[i], params, retain_graph=True)
-#         if grad2 is None:
-#             print(f"Gradient for parameter {i} is None. Skipping.")
-#             continue
-#         grad2 = torch.cat([g.view(-1) if g is not None else torch.zeros_like(p).view(-1)
-#                            for g, p in zip(grad2, params)])
-#         hessian[i] = grad2
-#
-#     return hessian
-
 def compute_hessian(model, X, y, criterion):
     model.eval()
     predictions = model(X)
